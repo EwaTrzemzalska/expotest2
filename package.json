@@ -11,11 +11,13 @@
     "eject": "npx expo eject"
   },
   "dependencies": {
-    "expo-cli": "4.0.2",
     "expo": "39.0.5",
+    "expo-cli": "4.0.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "0.63.3",
+    "react-native-elements": "^3.3.1",
+    "react-native-safe-area-context": "3.1.9",
     "react-native-web": "0.13.7"
   },
   "devDependencies": {

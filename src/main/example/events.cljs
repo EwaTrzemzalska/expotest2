@@ -35,14 +35,16 @@
    (update db :counter inc)))
 
 (reg-event-db
- :add-single-todo
- (fn [db _]
-   (let [single-todo (:input db)]
+ :add-todo
+ (fn [db [_ todo-title]]
+   (let [id (random-uuid)
+         todo {:title todo-title
+               :done false}]
      (-> db
-         (update :todo-list conj single-todo)
-         (assoc :input "")))))
+         (update :todos-by-id assoc id todo)
+         (update :todos-by-order conj id)))))
 
 (reg-event-db
- :update-input
- (fn [db [_ user-input]]
-   (assoc db :input user-input)))
+ :switch-done
+ (fn [db [_ id]]
+   (update-in db [:todos-by-id id :done] not)))

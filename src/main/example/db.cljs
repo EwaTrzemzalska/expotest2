@@ -8,5 +8,6 @@
 
 ;; initial state of app-db
 (defonce app-db {:counter 0
-                 :todo-list [{:id 1 :name "first task"}]
+                 :todos-by-id {}
+                 :todos-by-order []
                  :input ""})

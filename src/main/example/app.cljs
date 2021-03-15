@@ -43,19 +43,20 @@
 
 (defn root []
   [:> rn/View {:style (:container styles)}
-   [:> rn/Text {:style (:counter styles)} "You need to do: " @(rf/subscribe [:get-counter])]
-   [:> rn/Text "My text"]
-   [:> rne/CheckBox {:title "Click here"
-                 :checked true}]
-   [:> rn/TouchableOpacity {:style    (:button styles)
-                            :on-press #(rf/dispatch [:inc-counter])}
-    [:> rn/Text {:style (:button-text styles)} "Click me, I'll count"]]
-   [:> rn/Image {:style  (:logo styles)
-                 :source splash-img}]
-   [:> rn/Text {:style (:creds styles)} "Using: shadow-cljs+expo+reagent+re-frame"]
-   [:> rn/TouchableOpacity {:style    (:button styles)
-                            :on-press #(rf/dispatch [:inc-counter])}
-    [:> rn/Text {:style (:button-text styles)} "Click for Ewa!"]]])
+   [:> rn/View
+    (let [todo-list (rf/subscribe [:get-todos-by-order])]
+      [:> rn/View
+       [:> rn/Text "You need to do: "]
+
+       (map (fn [{:keys [title done id]}]
+              [:> rne/ListItem {:key id}
+               [:> rne/ListItem.Content
+                [:> rne/CheckBox {:title title
+                                  :checked done
+                                  :onPress #(rf/dispatch [:switch-done id])}]]])
+            @todo-list)])]])
+
+(comment (rf/dispatch [:add-todo "laundry"]))
 
 (defn start
   {:dev/after-load true}

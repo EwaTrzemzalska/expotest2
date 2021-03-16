@@ -14,6 +14,6 @@
                       (assoc :id id))) todos-by-order)))
 
 (reg-sub
- :input
+ :get-input
  (fn [db]
    (:input db)))

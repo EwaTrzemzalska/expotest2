@@ -42,9 +42,22 @@
                :done false}]
      (-> db
          (update :todos-by-id assoc id todo)
-         (update :todos-by-order conj id)))))
+         (update :todos-by-order conj id)
+         (assoc :input "")))))
 
 (reg-event-db
  :switch-done
  (fn [db [_ id]]
    (update-in db [:todos-by-id id :done] not)))
+
+(reg-event-db
+ :update-input
+ (fn [db [_ user-input]]
+   (assoc db :input user-input)))
+
+(reg-event-db
+ :remove-todo
+ (fn [db [_ todo-id]]
+   (-> db
+       (update :todos-by-order (fn [todos-by-order]
+                                 (remove #{todo-id} todos-by-order))))))

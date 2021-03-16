@@ -67,32 +67,6 @@
 
 (comment (rf/dispatch [:add-todo "laundry"]))
 
-
-;; (defn list-el [content]
-;;   [:li
-;;    content
-;;    [:button "X"]])
-
-;; (defn main-panel []
-;;   (let [todo-list (re-frame/subscribe [:get-todo-list])
-;;         input (re-frame/subscribe [:input])]
-;;     [:div
-;;      [:h1 "You need to do: "]
-;;      [:form {:on-submit (fn [e]
-;;                           (.preventDefault e)
-;;                           (re-frame/dispatch [:add-single-todo]))}
-;;       [:input {:type "text"
-;;                :value @input
-;;                :on-change (fn [e]
-;;                             (let [user-input (-> e .-target .-value)]
-;;                               (re-frame/dispatch [:update-input user-input])))}]
-;;       [:button {:type "submit"}
-;;        "Add"]]
-;;      [:ul
-;;       (map-indexed (fn [i el]
-;;                      ^{:key i} [list-el el])
-;;                    @todo-list)]]))
-
 (defn start
   {:dev/after-load true}
   []
